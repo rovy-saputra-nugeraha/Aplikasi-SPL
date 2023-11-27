@@ -12,6 +12,7 @@ def gauss_jordan_elimination(matrix):
     # Loop melalui setiap baris
     for i in range(baris):
         pivot = matrix[i][i]
+
         # Skala baris saat ini untuk membuat pivot menjadi 1
         for j in range(kolom):
             matrix[i][j] /= pivot
@@ -24,6 +25,7 @@ def gauss_jordan_elimination(matrix):
                     matrix[k][j] -= faktor * matrix[i][j]
 
     return matrix
+
 
 # Fungsi untuk metode iterasi Jacobi
 def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
@@ -151,15 +153,27 @@ class LinearEquationSolverGUI:
 
             # Gauss-Seidel
             gauss_seidel_result, gauss_seidel_iterations = gauss_seidel_iteration(matrix_a, vector_b, x0)
-
+            
             # Tampilkan hasil
             self.result_text.config(state=tk.NORMAL)
             self.result_text.delete(1.0, tk.END)
-            self.result_text.insert(tk.END, "Iterasi Gauss-Jordan:\n{}\n\n".format(gauss_jordan_result[:, -1]))
-            self.result_text.insert(tk.END, "Iterasi Pada Jacobi: Iterasi Ke-{}\n{}\n\n".format(jacobi_iterations, jacobi_result))
-            self.result_text.insert(tk.END, "Iterasi Pada Gauss-Seidel: Iterasi Ke-{}\n{}".format(gauss_seidel_iterations, gauss_seidel_result))
+
+            # Iterasi Gauss-Jordan
+            gauss_jordan_solution = gauss_jordan_result[:, -1]
+            gauss_jordan_format = "[{:0.6f}, {:0.6f}, {:0.6f}]"
+
+            self.result_text.insert(tk.END, "Iterasi Gauss-Jordan:\n" + gauss_jordan_format.format(*gauss_jordan_solution) + "\n\n")
+
+            # Iterasi Jacobi
+            jacobi_format = "Iterasi pada Jacobi: Iterasi Ke-{}\n[{:0.6f}, {:0.6f}, {:0.6f}]\n\n"
+            self.result_text.insert(tk.END, jacobi_format.format(jacobi_iterations, *jacobi_result))
+
+            # Iterasi Gauss-Seidel
+            gauss_seidel_format = "Iterasi pada Gauss-Seidel: Iterasi Ke-{}\n[{:0.6f}, {:0.6f}, {:0.6f}]"
+            self.result_text.insert(tk.END, gauss_seidel_format.format(gauss_seidel_iterations, *gauss_seidel_result))
+
             self.result_text.config(state=tk.DISABLED)
-            self.result_text.config(state=tk.DISABLED)
+
 
         except Exception as e:
             # Tampilkan error jika input tidak valid
