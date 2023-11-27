@@ -41,9 +41,9 @@ def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
 
         # Periksa konvergensi
         if np.linalg.norm(x - x_lama, ord=np.inf) < tolerance:
-            break
+            return x, iterasi + 1  # Mengembalikan solusi dan jumlah iterasi
 
-    return x
+    return x, max_iterations  # Mengembalikan solusi dan jumlah iterasi maksimum
 
 # Fungsi untuk metode iterasi Gauss-Seidel
 def gauss_seidel_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
@@ -52,7 +52,7 @@ def gauss_seidel_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
     x = np.copy(x0)
 
     # Iterasi untuk jumlah maksimum iterasi
-    for iterasi in range(max_iterations):
+    for iterasi in range(1, max_iterations + 1):
         x_lama = np.copy(x)
         # Perbarui setiap komponen vektor solusi menggunakan komponen yang sudah diperbarui
         for i in range(n):
@@ -61,9 +61,9 @@ def gauss_seidel_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
 
         # Periksa konvergensi
         if np.linalg.norm(x - x_lama, ord=np.inf) < tolerance:
-            break
+            return x, iterasi  # Mengembalikan solusi dan jumlah iterasi
 
-    return x
+    return None, max_iterations  # Mengembalikan None jika tidak konvergen, dan jumlah iterasi maksimum
 
 # Kelas untuk aplikasi GUI
 class LinearEquationSolverGUI:
@@ -147,17 +147,18 @@ class LinearEquationSolverGUI:
             gauss_jordan_result = gauss_jordan_elimination(augmented_matrix)
 
             # Jacobi
-            jacobi_result = jacobi_iteration(matrix_a, vector_b, x0)
+            jacobi_result, jacobi_iterations = jacobi_iteration(matrix_a, vector_b, x0)
 
             # Gauss-Seidel
-            gauss_seidel_result = gauss_seidel_iteration(matrix_a, vector_b, x0)
+            gauss_seidel_result, gauss_seidel_iterations = gauss_seidel_iteration(matrix_a, vector_b, x0)
 
             # Tampilkan hasil
             self.result_text.config(state=tk.NORMAL)
             self.result_text.delete(1.0, tk.END)
             self.result_text.insert(tk.END, "Iterasi Gauss-Jordan:\n{}\n\n".format(gauss_jordan_result[:, -1]))
-            self.result_text.insert(tk.END, "Iterasi Jacobi:\n{}\n\n".format(jacobi_result))
-            self.result_text.insert(tk.END, "Iterasi Gauss-Seidel:\n{}".format(gauss_seidel_result))
+            self.result_text.insert(tk.END, "Iterasi Pada Jacobi: Iterasi Ke-{}\n{}\n\n".format(jacobi_iterations, jacobi_result))
+            self.result_text.insert(tk.END, "Iterasi Pada Gauss-Seidel: Iterasi Ke-{}\n{}".format(gauss_seidel_iterations, gauss_seidel_result))
+            self.result_text.config(state=tk.DISABLED)
             self.result_text.config(state=tk.DISABLED)
 
         except Exception as e:
