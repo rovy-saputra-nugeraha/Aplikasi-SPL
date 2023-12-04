@@ -28,7 +28,7 @@ def gauss_jordan_elimination(matrix):
 
 
 # Fungsi untuk metode iterasi Jacobi
-def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
+def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-3):
     # Implementasi metode iterasi Jacobi untuk menyelesaikan sistem persamaan linear
     n = len(A)
     x = np.copy(x0)
@@ -48,7 +48,7 @@ def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
     return x, max_iterations  # Mengembalikan solusi dan jumlah iterasi maksimum
 
 # Fungsi untuk metode iterasi Gauss-Seidel
-def gauss_seidel_iteration(A, b, x0, max_iterations=50, tolerance=1e-6):
+def gauss_seidel_iteration(A, b, x0, max_iterations=50, tolerance=1e-3):
     # Implementasi metode iterasi Gauss-Seidel untuk menyelesaikan sistem persamaan linear
     n = len(A)
     x = np.copy(x0)
@@ -160,16 +160,16 @@ class LinearEquationSolverGUI:
 
             # Iterasi Gauss-Jordan
             gauss_jordan_solution = gauss_jordan_result[:, -1]
-            gauss_jordan_format = "[{:0.6f}, {:0.6f}, {:0.6f}]"
+            gauss_jordan_format = "[{:0.3f}, {:0.3f}, {:0.3f}]"
 
             self.result_text.insert(tk.END, "Iterasi Gauss-Jordan:\n" + gauss_jordan_format.format(*gauss_jordan_solution) + "\n\n")
 
             # Iterasi Jacobi
-            jacobi_format = "Iterasi pada Jacobi: Iterasi Ke-{}\n[{:0.6f}, {:0.6f}, {:0.6f}]\n\n"
+            jacobi_format = "Iterasi pada Jacobi: Iterasi Ke-{}\n[{:0.3f}, {:0.3f}, {:0.3f}]\n\n"
             self.result_text.insert(tk.END, jacobi_format.format(jacobi_iterations, *jacobi_result))
 
             # Iterasi Gauss-Seidel
-            gauss_seidel_format = "Iterasi pada Gauss-Seidel: Iterasi Ke-{}\n[{:0.6f}, {:0.6f}, {:0.6f}]"
+            gauss_seidel_format = "Iterasi pada Gauss-Seidel: Iterasi Ke-{}\n[{:0.3f}, {:0.3f}, {:0.3f}]"
             self.result_text.insert(tk.END, gauss_seidel_format.format(gauss_seidel_iterations, *gauss_seidel_result))
 
             self.result_text.config(state=tk.DISABLED)
