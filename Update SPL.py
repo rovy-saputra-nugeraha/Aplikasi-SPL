@@ -26,7 +26,6 @@ def gauss_jordan_elimination(matrix):
 
     return matrix
 
-
 # Fungsi untuk metode iterasi Jacobi
 def jacobi_iteration(A, b, x0, max_iterations=50, tolerance=1e-3):
     # Implementasi metode iterasi Jacobi untuk menyelesaikan sistem persamaan linear
@@ -76,7 +75,7 @@ class LinearEquationSolverGUI:
 
         # Muat dan ubah ukuran gambar logo
         try:
-            logo_image = Image.open("logo.png")  # Ganti dengan path logo Anda
+            logo_image = Image.open("logo.png")  # Ganti dengan path logo 
             logo_image = logo_image.resize((100, 100))  # Sesuaikan ukuran jika diperlukan
             self.logo = ImageTk.PhotoImage(logo_image)
         except Exception as e:
@@ -173,7 +172,6 @@ class LinearEquationSolverGUI:
             self.result_text.insert(tk.END, gauss_seidel_format.format(gauss_seidel_iterations, *gauss_seidel_result))
 
             self.result_text.config(state=tk.DISABLED)
-
 
         except Exception as e:
             # Tampilkan error jika input tidak valid
