@@ -13,5 +13,5 @@ Metode ini mirip dengan iterasi Jacobi, tetapi menggunakan solusi yang baru saja
 - Ikuti instruksi pada layar untuk memasukkan matriks koefisien dan vektor hasil SPL.
 # Kontribusi
 Anda dapat berkontribusi pada pengembangan proyek ini dengan cara fork dan pull request.
-#Lisensi
+# Lisensi
 Proyek ini dilisensikan di bawah MIT License.
